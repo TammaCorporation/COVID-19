@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- generic stylesheet -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="assets/library/css/bootstrap/bootstrap.min.css">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="assets/library/css/font-awesome/css/all.css">
+    <!-- animation -->
+    <link rel="stylesheet" href="assets/library/css/animation/animate.css">
+	<title></title>
+</head>
+<body>
+
+    <div class="covid19-modal">
+        <div class="covid19-modal-flex-container">
+            <div class="covid19-modal-content">
+                <div class="covid19-modal-close-container">
+                    <div class="covid19-modal-close-button"><i class="fal fa-times"></i></div>
+                </div>
+                <div class="covid19-modal-text">
+                    SchoolMass COVID-19 Student Stay-home Study Help
+                    <span><i class="fad fa-info-circle"></i> Helping Liberian students to study at home during the COVID-19 stay at home period</span>
+                </div>
+                <div class="covid19-modal-banner"></div>
+                <div class="covid19-modal-declaration">
+                    <input type="checkbox"> I would like to use SchoolMass even after the Corona Virus Epidemic in Liberia
+                </div>
+                <div class="covid19-modal-cta-container">
+                    <a href="#"><button class="btn btn-primary covid19-modal-cta-button">Select Class</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let covid19Modal = document.querySelector('.covid19-modal');
+            let covid19ModalCloseButton = document.querySelector('.covid19-modal-close-button');
+            covid19ModalCloseButton.addEventListener('click', function () {
+                covid19Modal.classList.add("remove-element");
+            });
+    </script>
+</body>
+</html>
