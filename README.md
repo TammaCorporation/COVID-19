@@ -70,4 +70,67 @@ $.ajax(settings).done(function (response) {
         must be set inorder to complete this action",
     "data": []
 }
+// Fullname and phone number duplicated
+{
+    "status": false,
+    "message": "Sorry, account creation halted due to duplication",
+    "data": []
+}
+```
+<!--  -->
+## Signing in as a student
+**Example Request:**
+```javascript
+
+// form values
+var  UserName = document.getElementById('UserName').value;
+var  phone    = document.getElementById('phone').value;
+
+// 
+var formData = new FormData();
+formData.append("login", "true");       // entry point (Boolean)
+formData.append("UserName", UserName);  // Username (Variable)
+formData.append("phone", phone);        // Phone Number (Variable)
+
+// 
+var settings = {
+  url: "http://localhost/www/COVID-19/config/initialize.inc.php", // URI of my local server
+  method: "POST",
+  timeout: 0,
+  processData: false,
+  mimeType: "multipart/form-data",
+  contentType: false,
+  data: formData
+};
+
+// 
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+```
+**Example Responses:**
+```json
+// Login is successfull
+{
+    "status": true,
+    "message": "login successful",
+    "data": {
+        "Fullname": "Peter Parker",
+        "Mobile": "0777000001",
+        "Age": "11",
+        "School": "Weltona Christian Academy",
+        "Class": "Grade Seven"
+    }
+}
+// Login Failed
+{
+    "status": false,
+    "message": "Sorry, invalid credentials"
+}
+// Login negated due to missing parameter or value 
+{
+    "status": false,
+    "message": "Sorry, all of the parameters: {UserName}, {phone} must be set inorder to complete this action",
+    "data": []
+}
 ```
