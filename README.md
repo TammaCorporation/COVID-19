@@ -9,7 +9,7 @@ __This is intended as a quick reference for *Public Home School API*, A small ye
 * **Creating Admin __(MOE/Teacher)__ account**
 <!--  -->
 ## Creating student account
-**Example:**
+**Example Request:**
 ```javascript
 
 // form values
@@ -19,17 +19,18 @@ var  Phone    = document.getElementById('Phone').value;
 var  Age      = document.getElementById('Age').value;
 var  School   = document.getElementById('School').value;
 var  Class    = document.getElementById('Class').value;
+var  follow   = document.getElementById('follow').value;
 
 // 
 var formData = new FormData();
-formData.append("addUser", true);                          // entry point (Boolean)
-formData.append("data[0]", "Peter Parker");                // fullname (Variable)
-formData.append("data[1]", "pParker");                     // Username (Variable)
-formData.append("data[2]", "0777001001");                  // Phone Number (Variable)
-formData.append("data[3]", "11");                          // Age (Variable)
-formData.append("data[4]", "Weltona Christian Academy");   // School (Variable)
-formData.append("data[5]", "Grade Seven");                 // Class (Variable)
-formData.append("data[6]", "yes");                         // Follow (Variable)
+formData.append("addUser", true);        // entry point (Boolean)
+formData.append("data[0]", fullname);    // fullname (Variable)
+formData.append("data[1]", Username);    // Username (Variable)
+formData.append("data[2]", Phone);       // Phone Number (Variable)
+formData.append("data[3]", Age);         // Age (Variable)
+formData.append("data[4]", School);      // School (Variable)
+formData.append("data[5]", Class);       // Class (Variable)
+formData.append("data[6]", follow);      // Follow (Variable)
 
 // 
 var settings = {
@@ -47,7 +48,26 @@ $.ajax(settings).done(function (response) {
   console.log(response);
 });
 ```
-
-
-
-
+**Example Responses:**
+```json
+// Account was created
+{
+    "status": true,
+    "message": "user added",
+    "data": []
+}
+// Account creation negated due to missing parameter or parameter value
+{
+    "status": false,
+    "message": "Sorry, all of the parameters: 
+        {data[0] (fullname) },
+        {data[1] (UserName) },
+        {data[2] (phone) },
+        {data[3] (age) },
+        {data[4] (school) },
+        {data[5] (class) },
+        {data[6] (follow) }, 
+        must be set inorder to complete this action",
+    "data": []
+}
+```
