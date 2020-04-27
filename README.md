@@ -1,7 +1,5 @@
 <!--  -->
 # Public Home School API
-<!-- -->
-<img src="https://static.toiimg.com/thumb/msid-74688799,imgsize-140514,width-400,resizemode-4/74688799.jpg" width="300" height="300">
 <!--  -->
 __This is intended as a quick reference for *Public Home School API*, A small yet robust service that provides the capabilities for remote academic studies__
 <!--  -->
