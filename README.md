@@ -1,14 +1,24 @@
 <!--  -->
 # Public Home School API
 <!--  -->
-__This is intended as a quick reference for *Public Home School API*, A small yet robust service that provides the capabilities for remote academic studies__
+This is intended as a quick reference for *__Public Home School API__*, A small yet robust service that provides the capabilities for remote academic studies
 <!--  -->
 ### Table of contents
-* **Creating student account**
-* **Signing in as a student**
-* **Creating Admin __(MOE/Teacher)__ account**
-<!--  -->
-## Creating student account
+* **Create student account**
+* **Sign in as a student**
+* **Retrieve subject list(Assigned teacher info included)**
+* **Retrieve list of questions asked**
+* **Ask teacher a question**
+* **Update an existing question**
+* **Delete a question**
+* **Retrieve task excerpt**
+* **Retrieve task details(exercise inclusive)**
+* **Submit student exercise**
+* **Logout student**
+---
+* **Create Admin __(MOE/Teacher)__ account**
+<!-- Create student account -->
+## Create student account
 **Example Request:**
 ```javascript
 
@@ -77,8 +87,9 @@ $.ajax(settings).done(function (response) {
     "data": []
 }
 ```
-<!--  -->
-## Signing in as a student
+
+<!-- Sign in as a student -->
+## Sign in as a student
 **Example Request:**
 ```javascript
 
@@ -134,3 +145,260 @@ $.ajax(settings).done(function (response) {
     "data": []
 }
 ```
+
+<!-- Retrieve subject list -->
+## Retrieve subject list(Assigned teacher info included)
+**Example Request:**
+```javascript
+// 
+var settings = {
+  "url": "http://localhost/www/COVID-19/config/student/students.inc.php?getSubjectList=true",
+  "method": "GET",
+  "timeout": 0
+};
+// 
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+```
+**Example Responses:**
+```json
+// Request is successful
+{
+    "status": true,
+    "message": [
+        {
+            "fullname": "Mr. Yorni Sackie",
+            "phone": "0777001001",
+            "subjects": [
+                "History",
+                "Civics"
+            ]
+        },
+        {
+            "fullname": "Jasmine Varese",
+            "phone": "07770730821",
+            "subjects": [
+                "Economics"
+            ]
+        }
+    ]
+}
+//
+{
+    "status": false,
+    "message": "Sorry, all of the parameters: {getSubjectList} must be set inorder to complete this action",
+    "data": []
+}
+```
+
+<!--  -->
+## Retrieve list of questions asked
+**Example #1 Request (fetch all):**
+```javascript
+//
+var settings = {
+  "url": "http://localhost/www/COVID-19/config/student/students.inc.php?getInquiries=true",
+  "method": "GET",
+  "timeout": 0,
+};
+//
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+```
+**Example Responses:**
+```json
+{
+    "status": true,
+    "message": [
+        {
+            "id": "6",
+            "studentName": "Michael Nimley",
+            "intended_subject": "Literature",
+            "student_question": "Who do you think is to really be blamed in the Novel 'The gods are not to blame'?",
+            "teacher_answer": "In all fairness, Bonkar is to be blamed.Why?....let's face it. The god",
+            "teacher_first_name": "Michael ",
+            "teacher_last_name": "Nimley",
+            "teacher_phone": "0777007009",
+            "teacher_gender": "male"
+        },
+        {
+            "id": "10",
+            "studentName": "Michael Nimley",
+            "intended_subject": "Literature",
+            "student_question": "Who do you think is to really be blamed in the Novel 'The gods are not to blame'?",
+            "teacher_answer": "",
+            "teacher_first_name": "Michael ",
+            "teacher_last_name": "Nimley",
+            "teacher_phone": "0777007009",
+            "teacher_gender": "male"
+        },
+        {
+            "id": "11",
+            "studentName": "Michael Nimley",
+            "intended_subject": "Literature",
+            "student_question": "Who do you think is to really be blamed in the Novel 'The gods are not to blame'?",
+            "teacher_answer": "",
+            "teacher_first_name": "Michael ",
+            "teacher_last_name": "Nimley",
+            "teacher_phone": "0777007009",
+            "teacher_gender": "male"
+        },
+        {
+            "id": "12",
+            "studentName": "Michael Nimley",
+            "intended_subject": "Literature",
+            "student_question": "Who do you think is to really be blamed in the Novel 'The gods are not to blame'?",
+            "teacher_answer": "",
+            "teacher_first_name": "Michael ",
+            "teacher_last_name": "Nimley",
+            "teacher_phone": "0777007009",
+            "teacher_gender": "male"
+        },
+        {
+            "id": "13",
+            "studentName": "Michael Nimley",
+            "intended_subject": "Literature",
+            "student_question": "What is money?",
+            "teacher_answer": "",
+            "teacher_first_name": "Michael ",
+            "teacher_last_name": "Nimley",
+            "teacher_phone": "0777007009",
+            "teacher_gender": "male"
+        }
+    ]
+}
+```
+
+**Example #2 Request (fetch specific for ie editing):**
+```javascript
+//
+var settings = {
+  "url": "http://localhost/www/COVID-19/config/student/students.inc.php?getInquiries=true&id=6",
+  "method": "GET",
+  "timeout": 0,
+};
+//
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+```
+**Example Responses:**
+```json
+{
+    "status": true,
+    "message": [
+        {
+            "id": "6",
+            "studentName": "Michael Nimley",
+            "intended_subject": "Literature",
+            "student_question": "Who do you think is to really be blamed in the Novel 'The gods are not to blame'?",
+            "teacher_answer": "In all fairness, Bonkar is to be blamed.Why?....let's face it. The god",
+            "teacher_first_name": "Michael ",
+            "teacher_last_name": "Nimley",
+            "teacher_phone": "0777007009",
+            "teacher_gender": "male"
+        }
+    ]
+}
+```
+
+
+<!--  -->
+## Ask teacher a question
+**Example Request:**
+```javascript
+// 
+var class     =  document.getElementById('class').value;
+var Qsubject  =  document.getElementById('Qsubject').value;
+var Question  =  document.getElementById('Question').value;
+// 
+var formData = new FormData();
+formData.append("addInquiry", "true");
+formData.append("class", class);
+formData.append("Qsubject", Qsubject);
+formData.append("Question", Question);
+// 
+var settings = {
+  "url": "http://localhost/www/COVID-19/config/student/students.inc.php",
+  "method": "POST",
+  "timeout": 0,
+  "processData": false,
+  "mimeType": "multipart/form-data",
+  "contentType": false,
+  "data": formData
+};
+// 
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+```
+**Example Responses:**
+```json
+//
+{
+    "status": true,
+    "message": "1 question added"
+}
+//
+{
+    "status": false,
+    "message": "Sorry, there's no teacher available for this class"
+}
+```
+
+<!--  -->
+## Topic
+**Example Request:**
+```javascript
+```
+**Example Responses:**
+```json
+
+
+<!--  -->
+## Topic
+**Example Request:**
+```javascript
+```
+**Example Responses:**
+```json
+```
+
+<!--  -->
+## Topic
+**Example Request:**
+```javascript
+```
+**Example Responses:**
+```json
+
+
+<!--  -->
+## Topic
+**Example Request:**
+```javascript
+```
+**Example Responses:**
+```json
+```
+
+<!--  -->
+## Topic
+**Example Request:**
+```javascript
+```
+**Example Responses:**
+```json
+```
+
+
+
+
+
+
+
+
+
+
