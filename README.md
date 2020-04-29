@@ -17,6 +17,8 @@ This is intended as a quick reference for *__Public Home School API__*, A small 
 * **Logout student**
 ---
 * **Create Admin __(MOE/Teacher)__ account**
+---
+
 <!-- Create student account -->
 ## Create student account
 **Example Request:**
